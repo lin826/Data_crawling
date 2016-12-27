@@ -15,6 +15,9 @@ from selenium.webdriver.common.keys import Keys
 input_file = 'mybirthday.csv'
 output_file = 'user_data.csv'
 
+user_id = 'datascienceisgood'
+user_pwd = 'datascience'
+
 driver_get = webdriver.Firefox()
 
 # Login
