@@ -1,5 +1,5 @@
-Download "python"
-Download "pip"
-Download "geckodriver"
+Install "python"
+Install "pip"
+Install "geckodriver"
 
 Move "mybirthday.csv" into this folder
