@@ -17,6 +17,15 @@ output_file = 'user_data.csv'
 
 driver_get = webdriver.Firefox()
 
+# Login
+driver_get.get('https://www.instagram.com/accounts/login/')
+time.sleep(2)
+driver_get.find_element_by_xpath('//input[@name="username"]').send_keys(user_id)
+driver_get.find_element_by_xpath('//input[@name="password"]').send_keys(user_pwd)
+driver_get.find_element_by_class_name('_aj7mu').click()
+time.sleep(5)
+
+
 with open(input_file, 'rU') as file:
     file_content = csv.reader(file)
     with open(output_file, 'w') as csvfile:
