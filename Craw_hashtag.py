@@ -1,9 +1,11 @@
-# Get 200 hosts randomly
-#       except 1-300 (299 not found)  15800-16205 (15865 not found)  9600-9800
-#       12000-12300 17000 - 17296
+# Get encode way
+import urllib
+import chardet
 import csv
+import json
 import re
 import time
+import sys
 
 from selenium import webdriver
 #Optional Packages
@@ -12,8 +14,11 @@ from selenium.webdriver.support.ui import Select
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.keys import Keys
 
+reload(sys)
+sys.setdefaultencoding('utf-8')
+
 input_file = 'mybirthday.csv'
-output_file = 'user_data.csv'
+output_file = 'user_data.json'
 
 user_id = 'datascienceisgood'
 user_pwd = 'datascience'
@@ -31,14 +36,15 @@ time.sleep(5)
 
 with open(input_file, 'rU') as file:
     file_content = csv.reader(file)
-    with open(output_file, 'w') as csvfile:
-        fieldnames = ['username','id','url','alt']
-        spamwriter = csv.DictWriter(csvfile, fieldnames=fieldnames, extrasaction='ignore')
-        spamwriter.writeheader()
+    with open(output_file, 'w') as outfile:
+        data = list()
         for row in csv.reader(file, delimiter=','):
-            print(row[0])
-            driver_get.get('https://www.instagram.com/'+row[0])
+            if(row[0]=='username'):
+                continue
+            url_user_page = 'https://www.instagram.com/'+row[0]
+            driver_get.get(url_user_page)
             number = 0
+            item = {'user_id':row[0],'pictures':list()}
             for i in range(0,3): # prevent for webpage loading
                 try:
                     driver_get.find_element_by_class_name("_oidfu").click() # more button
@@ -54,12 +60,17 @@ with open(input_file, 'rU') as file:
                 time.sleep(1)
                 driver_get.execute_script("window.scrollTo(0, document.body.scrollHeight);")
                 e = driver_get.find_elements_by_class_name("_icyx7") # each item
+                href = driver_get.find_elements_by_class_name("_8mlbc") # each item
                 for index in range(previous,len(e)):
-                    # driver_detail.get()
-                    spamwriter.writerow({fieldnames[0]:row[0],
-                    fieldnames[1]:e[index].get_attribute("id"),
-                    fieldnames[2]:e[index].get_attribute("src"),
-                    fieldnames[3]:(e[index].get_attribute("alt")).encode("utf-8")})
+                    node = {}
+                    node['post_url'] = href[index].get_attribute('href')
+                    node['picture_url'] = e[index].get_attribute("src")
+                    tags = e[index].get_attribute("alt")
+                    node['hashtags'] = [tag.strip("#") for tag in tags.split() if tag.startswith("#")]
+                    item['pictures'].append(node)
+                    # http://stackoverflow.com/questions/6331497/an-elegant-way-to-get-hashtags-out-of-a-string-in-python
                 previous = len(e)
                 if(previous==0):
                     break
+            data.append(item)
+        json.dump(data, outfile)
