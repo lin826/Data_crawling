@@ -1,6 +1,6 @@
 import csv
 
-input_file = 'mybirthday.csv'
+input_file = 'id.csv'
 output_file = 'clean_'+input_file
 LIST = list()
 
@@ -13,7 +13,4 @@ with open(input_file, 'rU') as file:
         for row in csv.reader(file, delimiter=','):
             if(row[0] not in LIST):
                 LIST.append(row[0])
-                spamwriter.writerow({fieldnames[0]:row[0],
-    				fieldnames[1]:row[1],
-    				fieldnames[2]:row[2],
-    				fieldnames[3]:row[3]})
+                spamwriter.writerow({fieldnames[0]:row[0]})
