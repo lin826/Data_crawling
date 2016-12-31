@@ -18,7 +18,7 @@ reload(sys)
 sys.setdefaultencoding('utf-8')
 
 input_file = 'id_survey.csv'
-output_file = 'user_data.json'
+output_file = 'user_data_survey.json'
 
 user_id = 'datascienceisgood'
 user_pwd = 'datascience'

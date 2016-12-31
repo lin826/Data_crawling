@@ -17,8 +17,8 @@ from selenium.webdriver.common.keys import Keys
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
-input_file = 'id_2.csv'
-output_file = 'user_data_2.json'
+input_file = 'id_from_resultcsv.csv'
+output_file = 'user_data_result.json'
 
 user_id = 'datascienceisgood'
 user_pwd = 'datascience'
@@ -70,9 +70,6 @@ with open(input_file, 'rU') as file:
                     item['pictures'].append(node)
                     # http://stackoverflow.com/questions/6331497/an-elegant-way-to-get-hashtags-out-of-a-string-in-python
                 previous = len(e)
-                print('number: ',number,', len: ',len(e))
                 if(previous==0):
-                    break
-                if(previous%3!=0):
                     break
             json.dump(item, outfile)
