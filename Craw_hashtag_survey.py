@@ -17,7 +17,7 @@ from selenium.webdriver.common.keys import Keys
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
-input_file = 'id.csv'
+input_file = 'id_survey.csv'
 output_file = 'user_data.json'
 
 user_id = 'datascienceisgood'
