@@ -37,7 +37,7 @@ time.sleep(5)
 with open(input_file, 'rU') as file:
     file_content = csv.reader(file)
     with open(output_file, 'w') as outfile:
-        # data = list()
+        data = list()
         for row in csv.reader(file, delimiter=','):
             if(row[0]=='username'):
                 continue
@@ -72,4 +72,5 @@ with open(input_file, 'rU') as file:
                 previous = len(e)
                 if(previous==0):
                     break
-            json.dump(item, outfile)
+            data.append(item)
+        json.dump(data, outfile)
