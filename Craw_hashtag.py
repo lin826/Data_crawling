@@ -17,8 +17,8 @@ from selenium.webdriver.common.keys import Keys
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
-input_file = 'id_2.csv'
-output_file = 'user_data_2.json'
+input_file = 'id_3.csv'
+output_file = 'user_data_3.json'
 
 user_id = 'datascienceisgood'
 user_pwd = 'datascience'
@@ -55,7 +55,7 @@ with open(input_file, 'rU') as file:
                     print('NoSuchElementException in driver_get for button more')
                     time.sleep(1)
             previous = 0
-            while(previous<number):
+            while(previous+3<number):
                 driver_get.execute_script("window.scrollTo(0, document.body.scrollHeight/2);")
                 time.sleep(1)
                 driver_get.execute_script("window.scrollTo(0, document.body.scrollHeight);")
